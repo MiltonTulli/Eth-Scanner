@@ -1,0 +1,27 @@
+{
+  "name": "wallet-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node --max-old-space-size=4096 index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bip39": "^3.0.4",
+    "cheerio": "^1.0.0-rc.12",
+    "cli-spinners": "^2.7.0",
+    "commander": "^10.0.0",
+    "dotenv": "^16.0.3",
+    "ethereum-hdwallet": "^0.1.2",
+    "ora": "^6.1.2",
+    "pm2": "^5.2.2",
+    "puppeteer": "^19.5.2",
+    "puppeteer-extra": "^3.3.4",
+    "puppeteer-extra-plugin-stealth": "^2.11.1",
+    "request": "^2.88.2",
+    "web3": "^1.8.1"
+  }
+}
