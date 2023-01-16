@@ -78,7 +78,8 @@
 //   }
 // }
 
-function* generateCombinations(
+// TODO: refactor this fn
+export function* generateCombinations(
   elements,
   length,
   startIndex,
@@ -131,7 +132,3 @@ function* generateCombinations(
     }
   }
 }
-
-module.exports = {
-  generateCombinations,
-};

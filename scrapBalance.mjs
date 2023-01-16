@@ -1,13 +1,11 @@
-const request = require("request");
-const cheerio = require("cheerio");
-const puppeteer = require("puppeteer-extra");
-const { executablePath } = require("puppeteer");
+import puppeteer from "puppeteer-extra";
+import { executablePath } from "puppeteer";
 // add stealth plugin and use defaults (all evasion techniques)
-const StealthPlugin = require("puppeteer-extra-plugin-stealth");
+import StealthPlugin from "puppeteer-extra-plugin-stealth";
 
 puppeteer.use(StealthPlugin());
 
-const hasBalance = (balance) => {
+export const hasBalance = (balance) => {
   const ZERO_VALUES = ["0 Ether", undefined, null, ""];
   return balance && !ZERO_VALUES.includes(balance);
 };
@@ -52,7 +50,7 @@ const scrapEthplorer = (address, browser) => {
   );
 };
 
-const getMultipleBalances = async (addresses) => {
+export const getMultipleBalances = async (addresses) => {
   const browser = await puppeteer.launch({
     headless: true,
     executablePath: executablePath(),
@@ -70,5 +68,3 @@ const getMultipleBalances = async (addresses) => {
   await browser.close();
   return values;
 };
-
-module.exports = { getMultipleBalances, hasBalance };

@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node --max-old-space-size=4096 index.js"
+    "start": "BIP_INDEX=10 node --max-old-space-size=4096 index.mjs",
+    "start:all": "node --max-old-space-size=4096 startMultipleInstances.mjs"
   },
   "author": "",
   "license": "ISC",
