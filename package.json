@@ -13,11 +13,13 @@
   "license": "ISC",
   "dependencies": {
     "bip39": "^3.0.4",
+    "bitcore-mnemonic": "^10.0.2",
     "cheerio": "^1.0.0-rc.12",
     "cli-spinners": "^2.7.0",
     "commander": "^10.0.0",
     "dotenv": "^16.0.3",
     "ethereum-hdwallet": "^0.1.2",
+    "firebase": "^9.8.3",
     "ora": "^6.1.2",
     "pm2": "^5.2.2",
     "puppeteer": "^19.5.2",

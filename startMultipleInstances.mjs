@@ -1,15 +1,9 @@
-/**
- *
- * This script creates 2048 instances. Be careful
- *
- *
- */
-import bip39 from "bip39";
 import pm2 from "pm2";
 
-const wordListLength = bip39.wordlists.english.length;
-const indexes = Array.from({ length: wordListLength }, (_, i) => i);
+const processes = 10;
+const indexes = Array.from({ length: processes }, (_, i) => i);
 
+console.log("RUNNING ALL INSTANCES");
 pm2.connect(() => {
   indexes.forEach((index) => {
     pm2.start(
