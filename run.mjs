@@ -6,15 +6,11 @@ import { getKeys } from "./getKeys.mjs";
 import { getMultipleBalances, hasBalance } from "./scrapBalance.mjs";
 import { pushToFirebase } from "./firebase.mjs";
 
-const DEFAULT_BIP_INDEX = 0;
 const wordList = bip39.wordlists.english;
 
 export const run = async function (config) {
-  const { batchAmount, bipIndex } = config;
+  const { batchAmount } = config;
 
-  const BIP_INDEX = Number(bipIndex || DEFAULT_BIP_INDEX);
-  // const START_WORD = wordList[BIP_INDEX];
-  // const fileName = `./combinations/${START_WORD}.json`;
   const fileName = `./combinations/matches.json`;
   const BATCH_AMOUNT = batchAmount || 5;
   const CI = false;
