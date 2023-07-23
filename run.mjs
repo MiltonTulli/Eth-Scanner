@@ -13,10 +13,11 @@ export const run = async function (config) {
   const { batchAmount, bipIndex } = config;
 
   const BIP_INDEX = Number(bipIndex || DEFAULT_BIP_INDEX);
-  const START_WORD = wordList[BIP_INDEX];
-  const fileName = `./combinations/${START_WORD}.json`;
+  // const START_WORD = wordList[BIP_INDEX];
+  // const fileName = `./combinations/${START_WORD}.json`;
+  const fileName = `./combinations/matches.json`;
   const BATCH_AMOUNT = batchAmount || 5;
-  const CI = true;
+  const CI = false;
 
   // console.log("\n********************");
   // console.log("BIP_INDEX: ", BIP_INDEX);
@@ -58,7 +59,7 @@ export const run = async function (config) {
       const addresses = batch.map((b) => b.address);
       spinner.text = "Getting balances";
       const balances = await getMultipleBalances(addresses);
-      batch.forEach((_struct, i) => {
+      batch.map((_struct, i) => {
         const balance = balances[i];
         _struct.balance = balance;
         if (!hasBalance(balance)) {
@@ -69,16 +70,22 @@ export const run = async function (config) {
               `Found Balance! ${balance} MNEMONIC=${_struct.mnemonic} address=${_struct.address}`
             )
             .start();
-          if (CI) {
+          if (!CI) {
             const rawData = JSON.parse(fs.readFileSync(fileName));
-            rawData.lastMnemonic = _struct.mnemonic;
             const matches = [...(rawData.matches || []), _struct];
             rawData.matches = matches;
             fs.writeFileSync(fileName, JSON.stringify(rawData));
           }
-          pushToFirebase(_struct);
+          // pushToFirebase(_struct);
         }
       });
+      fs.writeFileSync(
+        "./data.json",
+        JSON.stringify([
+          ...JSON.parse(fs.readFileSync("./data.json")),
+          ...batch,
+        ])
+      );
       batch = [];
     }
   }
