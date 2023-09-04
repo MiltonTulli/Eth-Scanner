@@ -63,7 +63,9 @@ export const getMultipleBalances = async (addresses) => {
       const ethplorer = scrapEthplorer(address, browser);
       value = await Promise.race([beaconChain, ethplorer]);
     } catch (e) {}
-    values.push(value);
+    finally {
+      values.push(value);
+    }
   }
   await browser.close();
   return values;

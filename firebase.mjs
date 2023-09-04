@@ -21,8 +21,10 @@ export const pushToFirebase = async (data) => {
     const database = getDatabase(app);
     const postListRef = ref(database, "wallets");
     const newPostRef = push(postListRef);
-    await set(newPostRef, data);
+    return await set(newPostRef, data);
   } catch (e) {
     console.error(e);
+    return null;
   }
 };
+

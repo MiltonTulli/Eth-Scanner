@@ -15,12 +15,6 @@ export const run = async function (config) {
   const BATCH_AMOUNT = batchAmount || 5;
   const CI = false;
 
-  // console.log("\n********************");
-  // console.log("BIP_INDEX: ", BIP_INDEX);
-  // console.log("START_WORD: ", START_WORD);
-  // console.log("BATCH_AMOUNT: ", BATCH_AMOUNT);
-  // console.log("********************\n");
-
   const spinner = ora({
     discardStdin: false,
     text: "Starting ",
@@ -28,14 +22,6 @@ export const run = async function (config) {
 
   spinner.text = "Starting ";
 
-  // let lastMnemonic;
-  // try {
-  // lastMnemonic = JSON.parse(fs.readFileSync(fileName))?.lastMnemonic;
-  // spinner.succeed("LastMnemonic found").start();
-  // } catch (e) {
-  // fs.writeFileSync(fileName, JSON.stringify({}));
-  // spinner.info("LastMnemonic not found").start();
-  // }
 
   const iterator = generateCombinations(wordList);
   let batch = [];
@@ -66,22 +52,17 @@ export const run = async function (config) {
               `Found Balance! ${balance} MNEMONIC=${_struct.mnemonic} address=${_struct.address}`
             )
             .start();
-          if (!CI) {
-            const rawData = JSON.parse(fs.readFileSync(fileName));
-            const matches = [...(rawData.matches || []), _struct];
-            rawData.matches = matches;
-            fs.writeFileSync(fileName, JSON.stringify(rawData));
-          }
-          // pushToFirebase(_struct);
+            try{
+              const rawData = JSON.parse(fs.readFileSync(fileName));
+              const matches = [...(rawData.matches || []), _struct];
+              rawData.matches = matches;
+              fs.writeFileSync(fileName, JSON.stringify(rawData));
+            } catch(e){
+              console.log("error saving into combinations", e );
+            }
+          pushToFirebase(_struct);
         }
       });
-      fs.writeFileSync(
-        "./data.json",
-        JSON.stringify([
-          ...JSON.parse(fs.readFileSync("./data.json")),
-          ...batch,
-        ])
-      );
       batch = [];
     }
   }

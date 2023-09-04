@@ -3,5 +3,5 @@ dotenv.config();
 
 import { run } from "./run.mjs";
 
-const config = { batchAmount: 1 };
+const config = { batchAmount: 5 };
 run(config);
