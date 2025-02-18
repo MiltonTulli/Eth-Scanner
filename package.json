@@ -7,6 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "bun build index.ts --target=node --outfile=./dist/bundle.js",
+    "compile": "bun build --compile --minify --target=bun-darwin-arm64 ./index.ts --outfile ./bin/darwin-arm64",
     "start": "bun run index.ts",
     "start:all": "bun run build && bun run startMultipleInstances.ts",
     "pm2": "pm2",
