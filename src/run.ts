@@ -48,7 +48,7 @@ export const run = async function (config: Config) {
       batch.map((_struct, i) => {
         const balance = balances[i];
         _struct.balance = balance;
-        if (hasBalance(balance)) {
+        if (!hasBalance(balance)) {
           spinner.fail(`${_struct.address} |  NO BALANCE | ${balance}`).start();
         } else {
           spinner
