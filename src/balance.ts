@@ -9,7 +9,7 @@ export const hasBalance = (balance) => {
   return balance && !ZERO_VALUES.includes(balance);
 };
 
-const getBalances = async (address: Address) => {
+export const getBalances = async (address: Address) => {
   // Native balance | ETH
   const balances = await Promise.all([
     publicClient.getBalance({

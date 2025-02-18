@@ -1,8 +1,7 @@
 import fs from "fs";
 import ora from "ora";
-import { generateCombinations } from "./getCombinations.js";
-import { getKeys } from "./getKeys.js";
-import { getMultipleBalances, hasBalance } from "./scrapBalance.js";
+import { generateCombinations, getKeys } from "./mnemonic.js";
+import { getMultipleBalances, hasBalance } from "./balance.js";
 import { type Address } from "viem";
 
 interface Struct {
@@ -19,7 +18,6 @@ interface Config {
 export const run = async function (config: Config) {
   const { batchAmount, filePath } = config;
 
-  // const fileName = `./combinations/matches.json`;
   const BATCH_AMOUNT = batchAmount || 5;
 
   const spinner = ora({
@@ -45,7 +43,7 @@ export const run = async function (config: Config) {
     batch.push(struct);
     if (batch.length === BATCH_AMOUNT || done) {
       const addresses = batch.map((b) => b.address);
-      spinner.text = "Getting balances";
+      spinner.text = "Getting balances\n";
       const balances = await getMultipleBalances(addresses);
       batch.map((_struct, i) => {
         const balance = balances[i];
