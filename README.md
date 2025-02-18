@@ -12,16 +12,16 @@ Ethereum wallets use BIP-39 mnemonics, which are generated from a list of **2048
 
 This results in the following number of possible mnemonic combinations:
 
-- **12 words**: \(2^{132} \approx 5.44 \times 10^{39}\)
-- **24 words**: \(2^{264} \approx 1.15 \times 10^{79}\)
+- **12 words**: $2^{132} \approx 5.44 \times 10^{39}$
+- **24 words**: $2^{264} \approx 1.15 \times 10^{79}$
 
 To put this in perspective, the estimated number of atoms in the observable universe is around \(10^{80}\).
 
 Currently, there are roughly **200 million active Ethereum wallets**. The probability of randomly generating a mnemonic that corresponds to an existing wallet with funds is:
 
-\[
+$$
 P = \frac{200,000,000}{2^{132}} \approx 6.91 \times 10^{-31}
-\]
+$$
 
 Even if we consider all Ethereum addresses ever generated (approximately **1.2 trillion**), the probability remains extremely low.
 
