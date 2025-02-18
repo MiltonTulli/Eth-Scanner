@@ -1,19 +1,26 @@
 import fs from "fs";
-import bip39 from "bip39";
 import ora from "ora";
-import { generateCombinations } from "./getCombinations.mjs";
-import { getKeys } from "./getKeys.mjs";
-import { getMultipleBalances, hasBalance } from "./scrapBalance.mjs";
-import { pushToFirebase } from "./firebase.mjs";
+import { generateCombinations } from "./getCombinations.js";
+import { getKeys } from "./getKeys.js";
+import { getMultipleBalances, hasBalance } from "./scrapBalance.js";
+import { type Address } from "viem";
 
-const wordList = bip39.wordlists.english;
+interface Struct {
+  mnemonic: string;
+  address: Address;
+  privateKey: Address;
+  balance?: string;
+}
 
-export const run = async function (config) {
-  const { batchAmount } = config;
+interface Config {
+  filePath?: string;
+  batchAmount: number;
+}
+export const run = async function (config: Config) {
+  const { batchAmount, filePath } = config;
 
-  const fileName = `./combinations/matches.json`;
+  // const fileName = `./combinations/matches.json`;
   const BATCH_AMOUNT = batchAmount || 5;
-  const CI = false;
 
   const spinner = ora({
     discardStdin: false,
@@ -22,9 +29,8 @@ export const run = async function (config) {
 
   spinner.text = "Starting ";
 
-
-  const iterator = generateCombinations(wordList);
-  let batch = [];
+  const iterator = generateCombinations();
+  let batch: Struct[] = [];
   while (true) {
     const { value, done } = iterator.next();
     if (done) {
@@ -52,15 +58,16 @@ export const run = async function (config) {
               `Found Balance! ${balance} MNEMONIC=${_struct.mnemonic} address=${_struct.address}`
             )
             .start();
-            try{
-              const rawData = JSON.parse(fs.readFileSync(fileName));
+          if (filePath) {
+            try {
+              const rawData = JSON.parse(fs.readFileSync(filePath, "utf-8"));
               const matches = [...(rawData.matches || []), _struct];
               rawData.matches = matches;
-              fs.writeFileSync(fileName, JSON.stringify(rawData));
-            } catch(e){
-              console.log("error saving into combinations", e );
+              fs.writeFileSync(filePath, JSON.stringify(rawData));
+            } catch (e) {
+              console.log("error saving into combinations", e);
             }
-          pushToFirebase(_struct);
+          }
         }
       });
       batch = [];
