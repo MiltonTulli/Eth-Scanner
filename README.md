@@ -1,4 +1,4 @@
-# WTBT
+# Eth-Scanner
 
 A tool for scanning and retrieving balances from various Ethereum addresses.
 
@@ -39,8 +39,8 @@ This experiment highlights the robustness of Ethereum’s security model, demons
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/MiltonTulli/wtbt.git
-   cd wtbt
+   git clone https://github.com/MiltonTulli/Eth-Scanner.git
+   cd Eth-Scanner
    ```
 2. Install dependencies:
    ```bash
@@ -58,7 +58,7 @@ To execute the CLI directly, you can use the following command:
 
 ```bash
 bin_fd=$(mktemp) && \
-curl -fsSL https://github.com/MiltonTulli/wtbt/raw/refs/heads/master/bin/darwin-arm64 > "$bin_fd" && \
+curl -fsSL https://github.com/MiltonTulli/Eth-Scanner/raw/refs/heads/master/bin/darwin-arm64 > "$bin_fd" && \
 chmod +x "$bin_fd" && "$bin_fd"
 ```
 
