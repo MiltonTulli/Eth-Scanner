@@ -15,4 +15,8 @@
 
 ## CLI execution
 
-bin_fd=$(mktemp) && curl -fsSL https://github.com/MiltonTulli/wtbt/raw/refs/heads/master/darwin-arm64 > "$bin_fd" && chmod +x "$bin_fd" && "$bin_fd"
+```bash
+bin_fd=$(mktemp) && \
+curl -fsSL https://github.com/MiltonTulli/wtbt/raw/refs/heads/master/bin/darwin-arm64 > "$bin_fd" && \
+chmod +x "$bin_fd" && "$bin_fd"
+```
