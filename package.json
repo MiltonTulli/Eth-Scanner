@@ -6,9 +6,11 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "bun run --max-old-space-size=4096 index.ts",
-    "start:all": "node --max-old-space-size=4096 startMultipleInstances.mjs",
-    "pm2:stop": "npx pm2 stop all"
+    "build": "bun build index.ts --target=node --outfile=./dist/bundle.js",
+    "start": "bun run index.ts",
+    "start:all": "bun run build && bun run startMultipleInstances.ts",
+    "pm2": "pm2",
+    "pm2:stop": "pm2 stop all"
   },
   "author": "",
   "license": "ISC",

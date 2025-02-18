@@ -6,7 +6,11 @@ import { run } from "./src/run";
 const program = new Command();
 
 program
-  .option("-f, --filePath <string>", "File Name to save success output", "")
+  .option(
+    "-f, --filePath <string>",
+    "File Name to save success output",
+    "./dist/wallets.json"
+  )
   .option("-ba, --batchAmount <number>", "Batch Amount to fetch balances", "5");
 
 program.parse();
@@ -20,7 +24,7 @@ if (filePath) {
     fs.mkdirSync(dir, { recursive: true });
   }
   if (!fs.existsSync(filePath)) {
-    fs.writeFileSync(filePath, "");
+    fs.writeFileSync(filePath, "[]");
   }
 }
 

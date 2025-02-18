@@ -48,7 +48,7 @@ export const run = async function (config: Config) {
       batch.map((_struct, i) => {
         const balance = balances[i];
         _struct.balance = balance;
-        if (!hasBalance(balance)) {
+        if (hasBalance(balance)) {
           spinner.fail(`${_struct.address} |  NO BALANCE | ${balance}`).start();
         } else {
           spinner
@@ -58,10 +58,10 @@ export const run = async function (config: Config) {
             .start();
           if (filePath) {
             try {
-              const rawData = JSON.parse(fs.readFileSync(filePath, "utf-8"));
-              const matches = [...(rawData.matches || []), _struct];
-              rawData.matches = matches;
-              fs.writeFileSync(filePath, JSON.stringify(rawData));
+              const json = fs.readFileSync(filePath, "utf-8") ?? "[]";
+              const rawData = JSON.parse(json);
+              const data = [...(rawData || []), _struct];
+              fs.writeFileSync(filePath, JSON.stringify(data));
             } catch (e) {
               console.log("error saving into combinations", e);
             }
