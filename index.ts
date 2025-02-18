@@ -1,7 +1,7 @@
-import { run } from "./run";
-import { Command } from "commander";
 import fs from "fs";
 import path from "path";
+import { Command } from "commander";
+import { run } from "./src/run";
 
 const program = new Command();
 
